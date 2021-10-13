@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">EMI Calculator</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">EMI Calculator</string>
+    <string name="second_fragment_label">Payment Frequency</string>
+    <string name="third_fragment_label">Loan Information</string>
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="find_out">Find Out</string>
+    <string name="calculate">Calculate</string>
+
+    <!-- Strings used for first fragment -->
+    <string name="home_lbl">Whats your mortgage premium?</string>
+
+    <!-- Strings used for second fragment -->
+    <string name="payment_period_length">What is the term of your payments?</string>
+    <string name="payment_period_hint">Number of Years</string>
+
+    <!-- Strings used for third fragments -->
+    <string name="loan_amt_label">What is the principal amount of the loan?</string>
+    <string name="loan_hint">Value in CAD$</string>
+    <string name="interest_label">What is the interest rate on the loan?</string>
+    <string name="interest_hint">Rate in %</string>
+    <string name="title_activity_calculate">Calculate</string>
+
+    <!-- Calculated_Premium -->
+    <string name="premium_lbl">Your Equated Monthly Installment:</string>
+    <string name="premium_hint">$ 0.00 CAD</string>
+    <string name="another_btn">Calculate Another</string>
+    <string name="pv">Loan: $ 0.00 CAD</string>
+    <string name="ir">Interest Rate: 0%</string>
+    <string name="tenure">Number of Months: 0</string>
+
+</resources>
