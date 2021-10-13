@@ -33,12 +33,7 @@ public class ThirdFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         // Get the arguments from the other fragment
-        if (getArguments() != null) {
-            payment_terms_param = getArguments().getInt("payment_terms");
-        } else {
-            payment_terms_param = 12;
-        }
-
+        payment_terms_param = getArguments().getInt("payment_terms");
     }
 
     @Override

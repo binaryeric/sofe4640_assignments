@@ -10,6 +10,7 @@ import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.emicalculator.databinding.FragmentSecondBinding;
@@ -37,11 +38,9 @@ public class SecondFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putInt("payment_terms", terms);
 
-                // Send the third fragment the arguments
-                ThirdFragment third = new ThirdFragment();
-                third.setArguments(bundle);
-
-                NavHostFragment.findNavController(SecondFragment.this).navigate(R.id.action_SecondFragment_to_thirdFragment);
+                // Use the navigation controller to pass the term data
+                NavController navctl = NavHostFragment.findNavController(SecondFragment.this);
+                navctl.navigate(R.id.action_SecondFragment_to_thirdFragment, bundle);
             }
         });
     }

@@ -39,14 +39,17 @@ public class Calculator extends AppCompatActivity {
 
         // Convert percent
         ir = ir/100;
+        // convert to monthly interest rate
+        ir = ir/12;
 
         // Convert years to months
         terms = terms*12;
         tenure.setText("Number of Months: "+Integer.toString(terms));
 
         // Calcualte the EMI using the PV formula
-        double exp = Math.pow((1+ir), terms);
-        double EMI = (pv * ir) * (exp / (exp-1));
+        double exp = Math.pow((1+ir), terms);;
+
+        double EMI = pv * ( (ir*exp) / (exp-1) );
 
         // Tell the user there premium
         premium.setText("$ "+ money_format.format(EMI) + " CAD");
