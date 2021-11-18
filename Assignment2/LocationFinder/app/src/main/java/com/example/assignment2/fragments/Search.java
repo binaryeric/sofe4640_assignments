@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.assignment2.R;
@@ -58,7 +59,7 @@ public class Search extends Fragment {
         ArrayList<LocationWrapper> location_data = database.getLocations();
 
         // Search Queries
-        EditText search = (EditText) mainView.findViewById(R.id.location_search);
+        SearchView search = (SearchView) mainView.findViewById(R.id.searchView);
 
         // Location Count
         TextView num_locations = (TextView) mainView.findViewById(R.id.search_result_text);
@@ -86,18 +87,20 @@ public class Search extends Fragment {
         recycler.setLayoutManager(new LinearLayoutManager(mainView.getContext()));
 
         // Allow user to query for data
-        search.addTextChangedListener(new TextWatcher() {
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                locations_adapter.getFilter().filter(search.getText().toString());
+            public boolean onQueryTextSubmit(String userSelection) {
+                locations_adapter.getFilter().filter(userSelection);
                 String text = res.getString(R.string.results_text, locations_adapter.getItemCount());
                 num_locations.setText(text);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String userSelection) {
+                locations_adapter.getFilter().filter(userSelection);
+                num_locations.setText("Searching...");
+                return false;
             }
         });
 

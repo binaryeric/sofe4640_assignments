@@ -67,7 +67,7 @@ public class LocationDatabase extends SQLiteOpenHelper {
         values.put("latitude", latitude);
         values.put("longitude", longitude);
 
-        long result = db.update(TABLE_NAME, values,"_id = ?",new String[]{Integer.toString(id)});
+        long result = db.update(TABLE_NAME, values,"id = ?",new String[]{Integer.toString(id)});
         if(result == -1) {
             Toast.makeText(context, "There was an issue editing this location :(", Toast.LENGTH_LONG).show();
         } else {
@@ -84,7 +84,7 @@ public class LocationDatabase extends SQLiteOpenHelper {
 
     public LocationWrapper getLocationByID(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT * FROM " + TABLE_NAME + "WHERE id = ?";
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE id = ?";
 
         Cursor cursor = null;
         if(db != null) {
@@ -98,6 +98,21 @@ public class LocationDatabase extends SQLiteOpenHelper {
         Toast.makeText(context, "Failed to load location :(", Toast.LENGTH_LONG).show();
         return null;
     }
+
+    public boolean locationExists(double Latitude, double Longitude) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT COUNT(*) FROM "+ TABLE_NAME +" WHERE latitude = ? AND longitude = ?";
+
+        Cursor cursor = null;
+        if(db != null) {
+            cursor = db.rawQuery(query, new String[]{Double.toString(Latitude), Double.toString(Longitude)});
+            if(cursor.moveToFirst()) {
+                int count = cursor.getInt(0);
+                return count > 0;
+            }
+        }
+        return false;
+    };
 
     public ArrayList<LocationWrapper> getLocations() {
         String query = "SELECT * FROM " + TABLE_NAME;

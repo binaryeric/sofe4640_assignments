@@ -43,6 +43,8 @@ public class LocationRecycler extends RecyclerView.Adapter<LocationRecycler.MyVi
             lat_text = itemView.findViewById(R.id.lat_lbl);
             long_text = itemView.findViewById(R.id.long_lbl);
             clickListener = listener;
+            //
+            itemView.setOnClickListener(this);
         }
 
         @Override
@@ -90,7 +92,7 @@ public class LocationRecycler extends RecyclerView.Adapter<LocationRecycler.MyVi
         @Override
         protected FilterResults performFiltering(CharSequence sequence) {
             // Init arrays to hold final result of filter data
-            ArrayList<LocationWrapper> filtered_locations = new ArrayList<>();
+            ArrayList<LocationWrapper> filtered_locations = new ArrayList<LocationWrapper>();
 
             // If there is no user input, display everything
             if (sequence == null || sequence.length() < 1) {
@@ -100,8 +102,9 @@ public class LocationRecycler extends RecyclerView.Adapter<LocationRecycler.MyVi
                 String pattern = sequence.toString().toLowerCase().trim();
 
                 for (int i = 0; i < location_list.size(); i++) {
-                    if (location_list.get(i).getAddress().toLowerCase().contains(pattern)) {
-                        filtered_locations.add(location_list.get(i));
+                    LocationWrapper location = location_list.get(i);
+                    if (location.getAddress().toLowerCase().contains(pattern)) {
+                        filtered_locations.add(location);
                     }
                 }
             }
@@ -123,9 +126,9 @@ public class LocationRecycler extends RecyclerView.Adapter<LocationRecycler.MyVi
                 notifyDataSetChanged();
 
                 // double check we dont need to recall the filter
-            //} else if (!charSequence.equals(prev_search)) {
-            //    visible_locations.clear();
-            //    notifyDataSetChanged();
+            } else if (!charSequence.equals(prev_search)) {
+                visible_locations.clear();
+                notifyDataSetChanged();
             }
         }
     };

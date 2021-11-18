@@ -1,5 +1,17 @@
 package com.example.assignment2.data;
 
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.widget.Toast;
+
+import com.example.assignment2.utils.LocationDatabase;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 public class DatasetImporter {
 
     // Quickest way to import a dataset of 50 locations
@@ -108,6 +120,34 @@ public class DatasetImporter {
             -79.2975,
             -63.52681
     };
+
+    public static void importToDatabase(Context context) {
+        Toast.makeText(context, "Checking database...", Toast.LENGTH_LONG);
+        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+        LocationDatabase database = new LocationDatabase(context);
+
+        for(int i=0; i<latitudes.length; i++) {
+            if(database.locationExists(latitudes[i],longitudes[i]) == false) {
+                // Create the entry if it doesnt exist
+                try {
+                    // Get the geocoder's input for address:
+                    List<Address> addr = null;
+                    addr = geocoder.getFromLocation(latitudes[i], longitudes[i], 1);
+                    String address = addr.get(0).getAddressLine(0);
+
+                    // Insert into the database
+                    database.newLocation(address, latitudes[i], longitudes[i]);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            Toast.makeText(context, "Database updated!", Toast.LENGTH_LONG);
+
+        }
+
+    }
 
 
 }
